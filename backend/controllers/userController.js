@@ -74,11 +74,17 @@ const loginUser = async(req, res, next) => {
     }
 }
 
-// ruta protegida 
-// GET
-// Private
+// @desc prueba ruta protegida 
+// @route /api/users/me
+// @access Private
 const getMe = (req, res, next) => {
-    res.send('me')
+
+    const user = {
+        id: req.user._id,
+        email: req.user.email, 
+        name: req.user.name
+    }
+    res.status(200).json(user)
 }
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET,{
