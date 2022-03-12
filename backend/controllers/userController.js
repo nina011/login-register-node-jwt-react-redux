@@ -74,6 +74,12 @@ const loginUser = async(req, res, next) => {
     }
 }
 
+// ruta protegida 
+// GET
+// Private
+const getMe = (req, res, next) => {
+    res.send('me')
+}
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET,{
         expiresIn: '8h'
@@ -81,5 +87,6 @@ const generateToken = (id) => {
 }
 module.exports = {
     registerUser,
-    loginUser 
+    loginUser,
+    getMe
 }
