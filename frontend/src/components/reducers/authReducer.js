@@ -21,6 +21,31 @@ const initialState = {
 
 export default function(state = initialState, action){
     switch(action.type){
+        case COMENZAR_REGISTRO_USUARIO:
+            return {
+                ...state,
+                isLoading: action.payload
+            }
+        case LOGIN_USUARIO_EXITO:
+        case REGISTRAR_USUARIO_EXITO:
+            return{
+                ...state,
+                isLoading: false, 
+                isSuccess: true,
+                user: action.payload
+            }
+        case REGISTRAR_USUARIO_ERROR:
+            return {
+                ...state,
+                isError: action.payload,
+                isSuccess: false
+            }
+        case COMENZAR_LOGIN_USUARIO:
+            return {
+                ...state,
+                isLoading: action.payload
+            }
+        
        default:
            return state;
     }
