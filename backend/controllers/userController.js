@@ -81,7 +81,7 @@ const protegida = (req, res, next) => {
 
     
     res.status(200).json({
-        mensaje: 'Esta ruta protegida es a nivel de frontend y backend. '+
+        mensaje: 'Esta ruta protegida es a nivel de frontend y backend. Este mensaje viene desde el backend a través de la autorización por Token, si puede verlo, es porque está autorizado su ingreso. '+
                  'Las tecnologías y arquitecturas que se usaron en la construcción de esta sencilla aplicación son, React con Redux, una API en Nodejs utilizando JWT y Mongodb. '+
                  '¡Gracias por tomarte el tiempo de interactuar con mi aplicación!'
         

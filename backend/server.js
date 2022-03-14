@@ -1,3 +1,4 @@
+const path = require('path')
 const express = require('express')
 const dotenv = require('dotenv').config()
 const errorHandler = require('./middleware/errorMiddleware')
@@ -21,6 +22,18 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/users', userRoutes)
+
+if(process.env.NODE_ENV = 'production'){
+
+    app.use(express.static(path.join(__dirname, '../frontend/build')))
+
+    app.get('*', (req, res) => res.sendFile(__dirname,'../','frontend',
+    'build','index.html'))
+}else{
+    app.get('/', (req, res) => {
+        res.json({msg: 'Bienvenido a la API'})
+    })
+}
 
 app.use(errorHandler)
 

@@ -13,7 +13,6 @@ import {
 from './Register.elements'
 import { Button, SubTitle } from '../Header/Header.elements'
 import { Paragraph } from '../Footer/Footer.elements'
-import { useAuthStatus } from '../hooks/useAuthStatus'
 
 function Login() {
 
@@ -26,8 +25,7 @@ function Login() {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const { user, isSuccess } = useSelector(state => state.auth)
-    // const [logIn, setLogIn] = useAuthStatus()
+    const { user } = useSelector(state => state.auth)
 
     const onChange = (e) => {
 
@@ -60,23 +58,11 @@ function Login() {
 
     useEffect(() => {
         if(user){
-            console.log('se ejeuta aqui '); navigate('/main')
+           navigate('/main')
         }
     },[user])
 
-    const redireccionar = () => {
-        
-    //   const user =  localStorage.getItem('user')
-    //   console.log('REDIRECCIONAR', user);
-    //   if(!user){
-    //       return;
-    //   } else if(user){
-    //    console.log('se ejeuta aqui '); navigate('/main')
-    //   }else{
-    //       return
-    //   }
-  
-    }
+    
   return (
     <RegisterContainer>
         <section>

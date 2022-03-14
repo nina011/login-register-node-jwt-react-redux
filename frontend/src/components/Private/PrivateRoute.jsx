@@ -1,12 +1,10 @@
-import React,{ useState, useEffect } from 'react'
+import React from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
-import {useAuthStatus}  from '../hooks/useAuthStatus'
 import { useSelector } from 'react-redux'
-import Main from '../Main/Main'
 
 const PrivateRoute = () => {
 
-    const  { user, isSuccess } = useSelector((state) => state.auth)
+    const  { user } = useSelector((state) => state.auth)
  
 
     console.log('private route ',user);

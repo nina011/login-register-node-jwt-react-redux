@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { IoLogOut } from 'react-icons/io5'
 import { cerrarSesionAction } from '../../actions/authActions'
 import 
@@ -20,7 +20,6 @@ from
 function Header() {
 
     const userLocal = localStorage.getItem('user')
-    const [showOp, setShowOp] = useState(userLocal ? false : true)
 
     const navigate = useNavigate()
     const dispatch = useDispatch()

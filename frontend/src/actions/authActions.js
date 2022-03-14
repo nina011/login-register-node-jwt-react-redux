@@ -12,7 +12,6 @@ import {
     } from "../components/types"
 import clienteAxios from '../config/axios'
 import Swal from 'sweetalert2'
-import { Action } from "history"
 
 
     export function registrarUsuarioAction(newUser){
@@ -149,6 +148,7 @@ export function getInfoRutaProtegidaAction(token){
             const config = {
                 headers:{
                     Authorization: `Bearer ${token}`
+
                 }
             }
             const res = await clienteAxios.get('/api/users/protegida', config)
@@ -156,6 +156,12 @@ export function getInfoRutaProtegidaAction(token){
             dispatch(obtenerMensajeExito(res.data.mensaje))
 
         }catch(err){
+          
+            Swal.fire(
+                'Error',
+                `${err.request.response.split(',')[0].split(':')[1].slice(1,-1)}`,
+                'error'
+            )
             dispatch(obtenerMensajeError())
         }
     }
