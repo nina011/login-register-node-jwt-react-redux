@@ -25,13 +25,13 @@ app.use('/api/users', userRoutes)
 
 if(process.env.NODE_ENV = 'production'){
 
-    app.use(express.static(path.join(__dirname, '../frontend/build')))
+    app.use(express.static(path.join(__dirname,'../frontend/build')))
 
     app.get('*', (req, res) => res.sendFile(__dirname,'../','frontend',
     'build','index.html'))
 }else{
     app.get('/', (req, res) => {
-        res.json({msg: 'Bienvenido a la API'})
+        res.json({msg: 'else Bienvenido a la API'})
     })
 }
 
