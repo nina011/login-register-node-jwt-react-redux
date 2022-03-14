@@ -4,7 +4,8 @@ import {
     REGISTRAR_USUARIO_ERROR,
     REGISTRAR_USUARIO_EXITO,
     LOGIN_USUARIO_ERROR,
-    LOGIN_USUARIO_EXITO
+    LOGIN_USUARIO_EXITO,
+    LOGOUT_USUARIO
     } from "../types"
 
 
@@ -26,9 +27,15 @@ export default function(state = initialState, action){
                 ...state,
                 isLoading: action.payload
             }
-        case LOGIN_USUARIO_EXITO:
         case REGISTRAR_USUARIO_EXITO:
             return{
+                ...state,
+                isLoading: false, 
+                isSuccess: true,
+                isError: false
+            }
+        case LOGIN_USUARIO_EXITO:
+            return {
                 ...state,
                 isLoading: false, 
                 isSuccess: true,
@@ -46,6 +53,12 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 isLoading: action.payload
+            }
+        case LOGOUT_USUARIO:
+            return {
+                ...state,
+                user: null,
+                isSuccess: false
             }
         
        default:

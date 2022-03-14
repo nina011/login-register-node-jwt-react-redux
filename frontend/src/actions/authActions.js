@@ -4,7 +4,8 @@ import {
     REGISTRAR_USUARIO_ERROR,
     REGISTRAR_USUARIO_EXITO,
     LOGIN_USUARIO_ERROR,
-    LOGIN_USUARIO_EXITO
+    LOGIN_USUARIO_EXITO,
+    LOGOUT_USUARIO
     } from "../components/types"
 import clienteAxios from '../config/axios'
 import Swal from 'sweetalert2'
@@ -20,14 +21,25 @@ import { useNavigate } from "react-router-dom"
 
             try{
                const res =  await clienteAxios.post('/api/users', newUser)
-
-               if(res.data){
-                   localStorage.setItem('user', JSON.stringify(res.data))
+                console.log(res.status)
+               if(res.status === 201){
+                Swal.fire(
+                    'Correcto',
+                    'Ha sido registrado con exito, porfavor inicie sesión.',
+                    'success'
+                )
+                dispatch( registrarUsuarioExito(res.data))
                }
-                 dispatch( registrarUsuarioExito(res.data))
+                 
             }catch(err){
+
+                Swal.fire(
+                    'Error',
+                    'Ha ocurrido un error, intentelo más tarde',
+                    'Error'
+                )
                  dispatch( registrarUsuarioError())
-                console.log(err)
+                
             }
         }
     }
@@ -55,24 +67,24 @@ import { useNavigate } from "react-router-dom"
 
             try{
                 const res = await clienteAxios.post('/api/users/login', user)
-                
+                console.log(res)
                 if(res.data){
                     localStorage.setItem('user', JSON.stringify(res.data))
-                   
+                    dispatch(loginExitoso(res.data))
                 }
 
-                dispatch(loginExitoso(res.data))
+                
 
                 
             }catch(err){
                 
                 dispatch(loginError())
-                console.log(' MSG ',err.request.response)
+                console.log(' MSG ',err.request.response.split(',')[0].split(':')[1])
                 if(err.request.status === 401){
                    
                     Swal.fire(
                         'Error',
-                        'contraseña incorrecta',
+                        `${err.request.response.split(',')[0].split(':')[1].slice(1,-1)}`,
                         'error'
                     )
                 }else{
@@ -100,4 +112,18 @@ const loginExitoso = (user) => ({
 const loginError = () => ({
     type: LOGIN_USUARIO_ERROR,
     payload: true
+})
+
+
+export function cerrarSesionAction(){
+    return async(dispatch) => {
+        
+      const user = localStorage.removeItem('user')
+
+      if(!user)
+        dispatch(cerrarSesion())
+    }
+}
+const cerrarSesion = () => ({
+    type: LOGOUT_USUARIO
 })

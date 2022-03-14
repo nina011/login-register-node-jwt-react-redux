@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { IoLogOut } from 'react-icons/io5'
+import { cerrarSesionAction } from '../../actions/authActions'
 import 
 { 
     Container,
@@ -22,24 +23,28 @@ function Header() {
     const [showOp, setShowOp] = useState(userLocal ? false : true)
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
 
     const onClickRegister = () => {
-        console.log('click');
-        setShowOp(false)
+     
         navigate('/register')
-        setShowOp(true)
+    
     }
 
     const onClickLogin = () => {
-        console.log('click login');
-        setShowOp(false)
         navigate('/login')
     }
+
+    const onClickSignOut = () => {
+        dispatch(cerrarSesionAction())
+    }
+
+
   return (
     <Container>
         <Title>Bienvenido a la aplicación de autenticación</Title>
-        { showOp ? 
+        { !userLocal ? 
             <>
             <SubTitle
                 color={'#E7E5E4'}
@@ -62,9 +67,11 @@ function Header() {
                 </Button>
             </OptionsContainer>
             </>
-            : userLocal? 
-            <BtnBack><IoLogOut />Cerrar Sesión</BtnBack>
-            : null
+            : 
+            <BtnBack
+                onClick={onClickSignOut}
+            ><IoLogOut />Cerrar Sesión</BtnBack>
+           
         }
         
     </Container>

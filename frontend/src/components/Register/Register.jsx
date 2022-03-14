@@ -59,13 +59,14 @@ function Register() {
         }
 
         dispatch(registrarUsuarioAction(userData))
+        navigate('/login')
     }
 
-    useEffect(() => {
-        if(user){
-            console.log('se ejecuta en registro '); navigate('/main')
-        }
-    },[user])
+    // useEffect(() => {
+    //     if(user){
+    //         console.log('se ejecuta en registro '); navigate('/login')
+    //     }
+    // },[user])
   return (
     <RegisterContainer>
         <section>
