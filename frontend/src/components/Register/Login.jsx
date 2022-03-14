@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FaUser } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginAction } from '../../actions/authActions'
+import { useNavigate } from 'react-router-dom'
 
 import {
     RegisterContainer,
@@ -10,12 +11,11 @@ import {
     Form
 }
 from './Register.elements'
-
 import { Button, SubTitle } from '../Header/Header.elements'
 import { Paragraph } from '../Footer/Footer.elements'
+import { useAuthStatus } from '../hooks/useAuthStatus'
 
-
-function Register() {
+function Login() {
 
     const [ formData, setFormData ] = useState({
         email:'',
@@ -25,6 +25,9 @@ function Register() {
     const { email, password} = formData;
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const { user, isSuccess } = useSelector(state => state.auth)
+    // const [logIn, setLogIn] = useAuthStatus()
 
     const onChange = (e) => {
 
@@ -52,6 +55,27 @@ function Register() {
         }
 
         dispatch(loginAction(userData))
+        
+    }
+
+    useEffect(() => {
+        if(user){
+            console.log('se ejeuta aqui '); navigate('/main')
+        }
+    },[user])
+
+    const redireccionar = () => {
+        
+    //   const user =  localStorage.getItem('user')
+    //   console.log('REDIRECCIONAR', user);
+    //   if(!user){
+    //       return;
+    //   } else if(user){
+    //    console.log('se ejeuta aqui '); navigate('/main')
+    //   }else{
+    //       return
+    //   }
+  
     }
   return (
     <RegisterContainer>
@@ -108,4 +132,4 @@ function Register() {
   )
 }
 
-export default Register
+export default Login

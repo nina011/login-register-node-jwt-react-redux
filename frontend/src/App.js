@@ -6,6 +6,8 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Register from "./components/Register/Register";
 import Login from './components/Register/Login'
+import PrivateRoute from './components/Private/PrivateRoute'
+import Main from "./components/Main/Main";
 import './index.css'
 
 
@@ -17,9 +19,13 @@ function App() {
       <Header />
         <Routes>
           <Route path="/register" element={<Register />}></Route>
-        </Routes>
-        <Routes>
+       
           <Route path="/login" element={<Login />}></Route>
+        
+
+        <Route path="/main" element={<PrivateRoute />}>
+            <Route path="/main" element={<Main />} />
+        </Route>
         </Routes>
       <Footer />
       </Provider>

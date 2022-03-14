@@ -12,7 +12,7 @@ export const Container = styled.div`
 export const Title = styled.h1`
     color: #F1F5F9;
     text-align:center;
-    margin: 3rem 0rem;
+    margin: 4rem 0rem;
 `
 export const SubTitle = styled.h2`
     color: ${(props) => props.color};
@@ -43,3 +43,33 @@ export const Button = styled.button`
 
     }
 `;
+
+export const BtnBack = styled.button`
+
+    position: absolute;
+    top:1rem;
+    right:8rem;
+    display:flex;
+    align-items:center;
+    padding: 8px 12px;
+    background-color: #F1F5F9;
+    color: #262626;
+    font-weight: 600;
+    border: none;
+    border-radius:5px;
+    cursor:pointer;
+   
+    &:hover{
+        opacity: 0.9;
+    }
+
+     @media (max-width: 1235px){
+    top:1rem;
+    right:3rem;
+    }
+/*
+    @media (max-width: 432px){
+    top:1rem;
+    right:1rem;
+    } */
+`

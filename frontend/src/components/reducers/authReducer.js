@@ -32,8 +32,10 @@ export default function(state = initialState, action){
                 ...state,
                 isLoading: false, 
                 isSuccess: true,
+                isError: false,
                 user: action.payload
             }
+        case LOGIN_USUARIO_ERROR:
         case REGISTRAR_USUARIO_ERROR:
             return {
                 ...state,

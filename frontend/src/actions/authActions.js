@@ -7,6 +7,8 @@ import {
     LOGIN_USUARIO_EXITO
     } from "../components/types"
 import clienteAxios from '../config/axios'
+import Swal from 'sweetalert2'
+import { useNavigate } from "react-router-dom"
 
 
 
@@ -49,20 +51,38 @@ import clienteAxios from '../config/axios'
     export function loginAction(user){
         return async(dispatch) =>{
             console.log('user desde el action ', user)
-
             dispatch(comenzarLoginUser())
 
             try{
                 const res = await clienteAxios.post('/api/users/login', user)
-
+                
                 if(res.data){
                     localStorage.setItem('user', JSON.stringify(res.data))
+                   
                 }
 
                 dispatch(loginExitoso(res.data))
+
+                
             }catch(err){
-                console.log(err)
+                
                 dispatch(loginError())
+                console.log(' MSG ',err.request.response)
+                if(err.request.status === 401){
+                   
+                    Swal.fire(
+                        'Error',
+                        'contraseña incorrecta',
+                        'error'
+                    )
+                }else{
+                    Swal.fire(
+                        'Error',
+                        'Ha ocurrido un error. Porfavor vuelva a intentarlo',
+                        'error'
+                    )
+                }
+                
             }
         }
     }
@@ -78,5 +98,6 @@ const loginExitoso = (user) => ({
 })
 
 const loginError = () => ({
-
+    type: LOGIN_USUARIO_ERROR,
+    payload: true
 })

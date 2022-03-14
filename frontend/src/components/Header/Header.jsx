@@ -1,26 +1,34 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { IoLogOut } from 'react-icons/io5'
 import 
 { 
     Container,
     Title,
     OptionsContainer,
     Button,
-    SubTitle
+    SubTitle,
+    BtnBack
 }
 from 
 './Header.elements'
 
 
+
 function Header() {
-    const [showOp, setShowOp] = useState(true)
+
+    const userLocal = localStorage.getItem('user')
+    const [showOp, setShowOp] = useState(userLocal ? false : true)
 
     const navigate = useNavigate()
+
 
     const onClickRegister = () => {
         console.log('click');
         setShowOp(false)
         navigate('/register')
+        setShowOp(true)
     }
 
     const onClickLogin = () => {
@@ -54,8 +62,11 @@ function Header() {
                 </Button>
             </OptionsContainer>
             </>
+            : userLocal? 
+            <BtnBack><IoLogOut />Cerrar Sesión</BtnBack>
             : null
         }
+        
     </Container>
   )
 }

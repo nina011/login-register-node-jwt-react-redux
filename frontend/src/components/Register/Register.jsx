@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FaUser } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
 import { registrarUsuarioAction } from '../../actions/authActions'
+import { useNavigate } from 'react-router-dom'
 import {
     RegisterContainer,
     Formgroup,
@@ -9,7 +10,6 @@ import {
     Form
 }
 from './Register.elements'
-
 import { Button, SubTitle } from '../Header/Header.elements'
 import { Paragraph } from '../Footer/Footer.elements'
 
@@ -24,8 +24,10 @@ function Register() {
     })
 
     const { name, email, password, password2 } = formData;
+    const { user } = useSelector((state) => state.auth)
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const onChange = (e) => {
 
@@ -58,6 +60,12 @@ function Register() {
 
         dispatch(registrarUsuarioAction(userData))
     }
+
+    useEffect(() => {
+        if(user){
+            console.log('se ejecuta en registro '); navigate('/main')
+        }
+    },[user])
   return (
     <RegisterContainer>
         <section>
