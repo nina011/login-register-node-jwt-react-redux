@@ -25,7 +25,20 @@ function Login() {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const { user } = useSelector(state => state.auth)
+    
+    const { user,  isError, isSuccess } = useSelector((state) => state.auth)
+
+    useEffect(() => {
+
+        if(isError){
+            console.log('error');
+        }
+       
+        if(isSuccess || user){
+            navigate('/main')
+        }
+
+    },[user])
 
     const onChange = (e) => {
 
@@ -56,11 +69,14 @@ function Login() {
         
     }
 
-    useEffect(() => {
-        if(user){
-           navigate('/main')
-        }
-    },[user])
+    // useEffect(() => {
+    //     if(user){
+    //        navigate('/main')
+    //     }
+    // },[user])
+
+    
+
 
     
   return (

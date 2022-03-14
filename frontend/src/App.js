@@ -18,9 +18,11 @@ function App() {
       <Provider store={store}>
       <Header />
         <Routes>
+          <Route path="/" element={<></>}></Route>
           <Route path="/register" element={<Register />}></Route>
        
           <Route path="/login" element={<Login />}></Route>
+          
         <Route path="/main" element={<PrivateRoute />}>
             <Route path="/main" element={<Main />} />
         </Route>

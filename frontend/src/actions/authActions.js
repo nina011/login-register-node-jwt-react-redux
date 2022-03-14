@@ -71,7 +71,7 @@ import Swal from 'sweetalert2'
 
     export function loginAction(user){
         return async(dispatch) =>{
-            console.log('user desde el action ', user)
+            
             dispatch(comenzarLoginUser())
 
             try{
@@ -141,7 +141,7 @@ export function getInfoRutaProtegidaAction(token){
     return async(dispatch) => {
         
         dispatch(comenzarObtenerMensaje())
-        console.log('en action')
+        
         try{
             
 
@@ -162,6 +162,7 @@ export function getInfoRutaProtegidaAction(token){
                 `${err.request.response.split(',')[0].split(':')[1].slice(1,-1)}`,
                 'error'
             )
+            console.log('ERROR ',err.request.response)
             dispatch(obtenerMensajeError())
         }
     }

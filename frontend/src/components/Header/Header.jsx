@@ -37,6 +37,7 @@ function Header() {
 
     const onClickSignOut = () => {
         dispatch(cerrarSesionAction())
+        navigate('/')
     }
 
 

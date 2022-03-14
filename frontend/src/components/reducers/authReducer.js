@@ -37,7 +37,9 @@ export default function(state = initialState, action){
                 ...state,
                 isLoading: false, 
                 isSuccess: true,
-                isError: false
+                isError: false,
+                user:null,
+                message:''
             }
         case LOGIN_USUARIO_EXITO:
             return {

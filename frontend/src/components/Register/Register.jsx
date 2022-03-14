@@ -24,7 +24,7 @@ function Register() {
     })
 
     const { name, email, password, password2 } = formData;
-    const { user } = useSelector((state) => state.auth)
+    // const { user } = useSelector((state) => state.auth)
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
