@@ -16,11 +16,6 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
-
-app.get('/', (req, res) => {
-    res.json({msg: 'Bienvenido a la API'})
-})
-
 app.use('/api/users', userRoutes)
 
 if(process.env.NODE_ENV = 'production'){
@@ -31,7 +26,7 @@ if(process.env.NODE_ENV = 'production'){
     'build','index.html'))
 }else{
     app.get('/', (req, res) => {
-        res.json({msg: 'else Bienvenido a la API'})
+        res.json({msg: 'Bienvenido a la API'})
     })
 }
 
