@@ -33,11 +33,20 @@ import { useNavigate } from "react-router-dom"
                  
             }catch(err){
 
-                Swal.fire(
-                    'Error',
-                    'Ha ocurrido un error, intentelo más tarde',
-                    'Error'
-                )
+                if(err.request.response){
+                    Swal.fire(
+                        'Error',
+                        `${err.request.response.split(',')[0].split(':')[1].slice(1,-1)}`,
+                        'Error'
+                    )
+                }else{
+                    Swal.fire(
+                        'Error',
+                        `Ha ocurrido un error, porfavor intentelo más tarde.`,
+                        'Error'
+                    )
+                }
+                
                  dispatch( registrarUsuarioError())
                 
             }
@@ -71,6 +80,11 @@ import { useNavigate } from "react-router-dom"
                 if(res.data){
                     localStorage.setItem('user', JSON.stringify(res.data))
                     dispatch(loginExitoso(res.data))
+                    Swal.fire(
+                        '¡Bienvenido!',
+                        '',
+                        'success'
+                    )
                 }
 
                 
@@ -79,9 +93,7 @@ import { useNavigate } from "react-router-dom"
             }catch(err){
                 
                 dispatch(loginError())
-                console.log(' MSG ',err.request.response.split(',')[0].split(':')[1])
-                if(err.request.status === 401){
-                   
+                if(err.request.status === 401){                   
                     Swal.fire(
                         'Error',
                         `${err.request.response.split(',')[0].split(':')[1].slice(1,-1)}`,
@@ -90,7 +102,7 @@ import { useNavigate } from "react-router-dom"
                 }else{
                     Swal.fire(
                         'Error',
-                        'Ha ocurrido un error. Porfavor vuelva a intentarlo',
+                        'Ha ocurrido un error. Porfavor vuelva a intentarlo más tarde',
                         'error'
                     )
                 }

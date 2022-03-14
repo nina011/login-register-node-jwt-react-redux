@@ -12,7 +12,9 @@ export const Container = styled.div`
 export const Title = styled.h1`
     color: #F1F5F9;
     text-align:center;
-    margin: 4rem 0rem;
+    margin-top:4rem;
+    margin-bottom:1.5rem;
+    
 `
 export const SubTitle = styled.h2`
     color: ${(props) => props.color};
@@ -24,7 +26,7 @@ export const OptionsContainer = styled.div`
     width: 300px;
     display: flex;
     margin: 0 auto;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.8rem;
     justify-content: space-around;    
 `
 
