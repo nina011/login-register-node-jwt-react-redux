@@ -16,12 +16,12 @@ import Swal from 'sweetalert2'
 
     export function registrarUsuarioAction(newUser){
         return async(dispatch) => {
-            console.log(newUser)
+            
             dispatch(registrarUsuario())
 
             try{
                const res =  await clienteAxios.post('/api/users', newUser)
-                console.log(res.status)
+               
                if(res.status === 201){
                 Swal.fire(
                     'Correcto',
@@ -37,13 +37,13 @@ import Swal from 'sweetalert2'
                     Swal.fire(
                         'Error',
                         `${err.request.response.split(',')[0].split(':')[1].slice(1,-1)}`,
-                        'Error'
+                        'error'
                     )
                 }else{
                     Swal.fire(
                         'Error',
                         `Ha ocurrido un error, porfavor intentelo más tarde.`,
-                        'Error'
+                        'error'
                     )
                 }
                 
@@ -76,7 +76,7 @@ import Swal from 'sweetalert2'
 
             try{
                 const res = await clienteAxios.post('/api/users/login', user)
-                console.log(res)
+               
                 if(res.data){
                     localStorage.setItem('user', JSON.stringify(res.data))
                     dispatch(loginExitoso(res.data))

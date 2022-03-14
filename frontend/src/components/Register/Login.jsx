@@ -26,19 +26,15 @@ function Login() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     
-    const { user,  isError, isSuccess } = useSelector((state) => state.auth)
+    const { user  } = useSelector((state) => state.auth)
 
     useEffect(() => {
 
-        if(isError){
-            console.log('error');
-        }
-       
-        if(isSuccess || user){
+        if(user){
             navigate('/main')
         }
 
-    },[user])
+    },[user, navigate])
 
     const onChange = (e) => {
 
@@ -49,7 +45,7 @@ function Login() {
     }
 
     const submitLogin = (e) => {
-        console.log('submit login');
+       
         e.preventDefault()
 
         if( !email || !password){

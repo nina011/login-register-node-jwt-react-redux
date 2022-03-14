@@ -9,25 +9,19 @@ function Main() {
     const user = localStorage.getItem('user')
     const dispatch = useDispatch()
 
-    const {message, isSuccess} = useSelector((state) => state.auth)
+    const { message } = useSelector((state) => state.auth)
     const token = user.split(',')[2].split(':')[1].slice(1,-2);
 
-    if(!token)console.log('no autorizado')
-    // const obtenerInfo = () => {
-    //     const token = user.split(',')[2].split(':')[1].slice(1,-2);
-
-    //     dispatch(getInfoRutaProtegidaAction(token))
-
-    // }
-
-  //  obtenerInfo()
     
 
   useEffect(() => {
-    if(user){
+    
+    if(user && token){
+      
       dispatch(getInfoRutaProtegidaAction(token))
     }
-  },[isSuccess])
+    
+  },[user,dispatch, token])
 
 
   return (
@@ -35,7 +29,11 @@ function Main() {
     <ContainerMain>
         <h2>Este es un acceso restringido</h2>
         {message !== '' ? 
-            <Paragraph>{message}</Paragraph>
+            <Paragraph>{
+              
+              message
+              
+              }</Paragraph>
             :
             <p>No se ha podido cargar el mensaje desde el backend</p>
     }

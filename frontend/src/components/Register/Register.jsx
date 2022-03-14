@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { FaUser } from 'react-icons/fa'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { registrarUsuarioAction } from '../../actions/authActions'
 import { useNavigate } from 'react-router-dom'
 import {
@@ -38,7 +38,6 @@ function Register() {
     }
 
     const submitRegistro = (e) => {
-        console.log('submit');
         e.preventDefault()
 
         if(!name || !email || !password || !password2){
