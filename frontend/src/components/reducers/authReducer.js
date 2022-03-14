@@ -5,7 +5,10 @@ import {
     REGISTRAR_USUARIO_EXITO,
     LOGIN_USUARIO_ERROR,
     LOGIN_USUARIO_EXITO,
-    LOGOUT_USUARIO
+    LOGOUT_USUARIO,
+    COMENZAR_OBTENER_MENSAJE,
+    MENSAJE_ERROR,
+    MENSAJE_EXITO
     } from "../types"
 
 
@@ -22,7 +25,9 @@ const initialState = {
 
 export default function(state = initialState, action){
     switch(action.type){
+        case COMENZAR_LOGIN_USUARIO:
         case COMENZAR_REGISTRO_USUARIO:
+        case COMENZAR_OBTENER_MENSAJE:
             return {
                 ...state,
                 isLoading: action.payload
@@ -44,23 +49,25 @@ export default function(state = initialState, action){
             }
         case LOGIN_USUARIO_ERROR:
         case REGISTRAR_USUARIO_ERROR:
+        case MENSAJE_ERROR:
             return {
                 ...state,
                 isError: action.payload,
                 isSuccess: false
             }
-        case COMENZAR_LOGIN_USUARIO:
-            return {
-                ...state,
-                isLoading: action.payload
-            }
+        
         case LOGOUT_USUARIO:
             return {
                 ...state,
                 user: null,
                 isSuccess: false
             }
-        
+        case MENSAJE_EXITO:
+            return{
+                ...state,
+                isSuccess:true, 
+                message: action.payload
+            }
        default:
            return state;
     }

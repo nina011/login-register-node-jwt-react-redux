@@ -5,15 +5,16 @@ import {
     REGISTRAR_USUARIO_EXITO,
     LOGIN_USUARIO_ERROR,
     LOGIN_USUARIO_EXITO,
-    LOGOUT_USUARIO
+    LOGOUT_USUARIO,
+    COMENZAR_OBTENER_MENSAJE,
+    MENSAJE_EXITO,
+    MENSAJE_ERROR
     } from "../components/types"
 import clienteAxios from '../config/axios'
 import Swal from 'sweetalert2'
-import { useNavigate } from "react-router-dom"
+import { Action } from "history"
 
 
-
-    // registrar usuario
     export function registrarUsuarioAction(newUser){
         return async(dispatch) => {
             console.log(newUser)
@@ -85,11 +86,7 @@ import { useNavigate } from "react-router-dom"
                         '',
                         'success'
                     )
-                }
-
-                
-
-                
+                }                
             }catch(err){
                 
                 dispatch(loginError())
@@ -138,4 +135,43 @@ export function cerrarSesionAction(){
 }
 const cerrarSesion = () => ({
     type: LOGOUT_USUARIO
+})
+
+
+export function getInfoRutaProtegidaAction(token){
+    return async(dispatch) => {
+        
+        dispatch(comenzarObtenerMensaje())
+        console.log('en action')
+        try{
+            
+
+            const config = {
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            }
+            const res = await clienteAxios.get('/api/users/protegida', config)
+          
+            dispatch(obtenerMensajeExito(res.data.mensaje))
+
+        }catch(err){
+            dispatch(obtenerMensajeError())
+        }
+    }
+}
+
+const comenzarObtenerMensaje = () =>({
+    type: COMENZAR_OBTENER_MENSAJE,
+    payload: true
+})
+
+const obtenerMensajeExito = (mensaje) =>({
+    type: MENSAJE_EXITO,
+    payload: mensaje
+})
+
+const obtenerMensajeError = () =>({
+    type: MENSAJE_ERROR,
+    payload: true
 })
